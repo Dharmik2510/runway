@@ -1,0 +1,41 @@
+{
+  "label": "Backtested on 220 synthetic worker histories.",
+  "workerCount": 220,
+  "totalFeesPaid": 1403.33,
+  "totalFeesAvoidable": 1293.03,
+  "advancesPaidCount": 520,
+  "advancesAvoidableCount": 486,
+  "calibration": {
+    "predictedBreachRate": 0.1,
+    "actualBreachRate": 0.095,
+    "workersWithP10": 74,
+    "workersBreachedP10": 7,
+    "sentence": "7 of 74 people with a worst-case date ran out of cash by that day — about 9%, close to the 10% goal.",
+    "chart": [
+      {
+        "label": "≤14d",
+        "predictedRate": 0.1,
+        "actualRate": 0.241,
+        "n": 29
+      },
+      {
+        "label": "15–30d",
+        "predictedRate": 0.1,
+        "actualRate": 0,
+        "n": 12
+      },
+      {
+        "label": "31–60d",
+        "predictedRate": 0.1,
+        "actualRate": 0,
+        "n": 5
+      },
+      {
+        "label": "61–120d",
+        "predictedRate": 0.1,
+        "actualRate": 0,
+        "n": 28
+      }
+    ]
+  }
+}

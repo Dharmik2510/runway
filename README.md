@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Runway
 
-## Getting Started
+**How long until my money runs out — before a $150 advance feels like the only option.**
 
-First, run the development server:
+Runway is an offline Next.js demo for **daily-wage and gig workers**. It forecasts a **funded-until date** (worst case first), shows the gap between wages **earned** and cash **in hand**, and intercepts predatory earned-wage advances with plain fee math — never judgment.
+
+> **Personal pain this solves:** You’ve already worked the hours. Payday hasn’t hit. Rent or a bill is due. An app offers cash against your next deposit. The fee looks tiny until you see it as hours of work. Runway replaces that panic with one honest date and clear alternatives.
+
+[Architecture](docs/ARCHITECTURE.md) · [Submission kit](SUBMISSION.md) · [Product brief](PROJECT.md)
+
+---
+
+## Why this is different
+
+| Innovation | What it means |
+|------------|----------------|
+| **Worst case first** | The risky funded-until date is the hero — never hide behind a median |
+| **Earned ≠ in hand** | Tracks payout lag explicitly; that gap is the product premise |
+| **Advance intercept** | Fee in dollars, annualized rate, *and* hours of work at the worker’s wage |
+| **Block bootstrap** | Resamples bad *weeks*, not iid days — tails stay honest |
+| **Non-judgmental** | “Take it anyway” is always available |
+| **Proof, labeled** | Backtest on 220 synthetic histories — not fake real-world claims |
+
+---
+
+## Screens
+
+| Route | Purpose |
+|-------|---------|
+| `/` **Today** | Funded-until date, daily wage, earned vs in-hand, log a shift |
+| `/decide` **Decide** | Intercept a $150 advance with alternatives |
+| `/proof` **Proof** | Fees avoidable vs paid; are the dates trustworthy? |
+| `/guide` **Guide** | Plain-language manual |
+
+Light/dark theme (default light). Switch workers in the header to explore different cash stories.
+
+---
+
+## Quick start
 
 ```bash
+npm install
+npm run precompute
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | What it does |
+|--------|----------------|
+| `npm run precompute` | ETL + simulations → `public/data/` |
+| `npm test` | Solvency unit tests |
+| `npm run build` | Precompute + production build |
+| `npm run screenshots` | Capture 5 mobile screenshots for submission |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## How it works (short)
 
-To learn more about Next.js, take a look at the following resources:
+1. CSVs in `/data` (~220 workers × ~14 weeks) are transformed at build time.
+2. A seeded **block-bootstrap** solvency sim estimates when cash first goes negative.
+3. A walk-forward harness asks: for advances people took, would a short buffer have covered the shortfall?
+4. The UI reads static JSON — **no API, auth, or database**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Scoring map (hackathon)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Criterion | Evidence in this repo |
+|-----------|------------------------|
+| **Innovation (25%)** | Gap premise, worst-case-first UX, fee-as-hours, block bootstrap |
+| **Technical execution (25%)** | Typed simulator + tests, ETL script, theme system, clean App Router layout |
+| **Functional completeness (20%)** | Four screens, theme, worker switcher, guide, offline demo |
+| **Problem–solution fit (20%)** | Payday-lag + advance trap framed throughout product + docs |
+| **UX (5%)** | Tokenized light/dark, typography hierarchy, plain language |
+| **Ambition (5%)** | Multi-worker backtest, 120-day horizon, honest synthetic labeling |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Data disclaimer
+
+Synthetic CSVs and JSON only. Proof figures are **not** real-world validation. Nothing leaves the machine.
+
+---
+
+## Stack
+
+Next.js 15 · React 19 · TypeScript · Tailwind CSS 4 · Vitest
