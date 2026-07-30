@@ -33,19 +33,14 @@ Runway is a cash-survival tool for daily-wage and gig workers. It answers one pe
 ## Public GitHub repo URL
 
 ```
-<!-- After: gh repo create runway --public --source=. --remote=origin --push -->
 https://github.com/Dharmik2510/runway
 ```
-
-*(Adjust the URL to match the repo you create.)*
 
 ## Hosted URL
 
 ```
-<!-- After: npx vercel --prod  (login once in the browser) -->
+https://dharmik-cursor-hackathon.vercel.app
 ```
-
-Hosting is optional but helps Functional Completeness + UX review. Vercel is the fastest path for this Next.js app.
 ---
 
 ## Screenshots to upload (exactly 5)
